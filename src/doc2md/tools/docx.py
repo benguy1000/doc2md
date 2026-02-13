@@ -61,11 +61,6 @@ def _paragraph_to_markdown(para: Paragraph, list_counters: dict) -> str:
     if not text:
         return ""
 
-    # Handle hyperlinks
-    for rel in para.part.rels.values():
-        if "hyperlink" in str(rel.reltype):
-            pass  # Basic handling below
-
     # Extract hyperlinks from XML
     hyperlinks = para._element.findall(qn("w:hyperlink"))
     for hl in hyperlinks:
