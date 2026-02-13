@@ -10,6 +10,6 @@ venv/
 .ruff_cache/
 .mypy_cache/
 tests/
-*.md
+claude-code-prompt.md
 .DS_Store
 Thumbs.db
