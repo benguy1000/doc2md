@@ -1,0 +1,11 @@
+services:
+  doc2md:
+    build: .
+    image: benguy1000/doc2md:latest
+    volumes:
+      - .:/data
+    environment:
+      - TRANSPORT=stdio
+      - PORT=3000
+      - DEFAULT_OUTPUT_DIR=/data/output
+    stdin_open: true
