@@ -19,7 +19,12 @@ def _diagnose_path(file_path: str) -> str:
     and a recommendation to use base64_content instead.
     """
     path = Path(file_path).resolve()
-    lines = [f"File not found: {file_path}", f"  Resolved to: {path}"]
+    cwd = Path.cwd()
+    lines = [
+        f"File not found: {file_path}",
+        f"  Resolved to: {path}",
+        f"  Working directory: {cwd}",
+    ]
 
     # Docker detection
     in_docker = Path("/.dockerenv").exists()

@@ -71,6 +71,8 @@ If you run Claude Desktop with Docker-based MCP servers, mount your files direct
 
 ### Claude Code
 
+Add to your project's `.mcp.json` or global MCP config:
+
 ```json
 {
   "mcpServers": {
@@ -81,6 +83,8 @@ If you run Claude Desktop with Docker-based MCP servers, mount your files direct
   }
 }
 ```
+
+> **Working directory:** Claude Code launches MCP servers with your project directory as CWD. When using `base64_content` without an `output_dir`, the converted `.md` file is written to your project directory. Use `output_dir` to control where output lands.
 
 ### Cursor
 
