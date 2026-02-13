@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "doc2md"
+version = "1.0.0"
+description = "MCP server that converts PDF, DOCX, PPTX to Markdown files on disk"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [{ name = "benguy1000" }]
+keywords = ["mcp", "markdown", "pdf", "docx", "pptx", "converter"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+    "mcp>=1.0.0",
+    "pymupdf>=1.24.0",
+    "python-docx>=1.1.0",
+    "python-pptx>=1.0.0",
+    "pydantic>=2.0.0",
+    "pyyaml>=6.0",
+]
+
+[project.scripts]
+doc2md = "doc2md.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/doc2md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.4.0",
+]
