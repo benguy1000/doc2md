@@ -25,18 +25,19 @@ TOOLS = [
         description=(
             "Convert a PDF file to clean, structured Markdown and write it to disk. "
             "Preserves headings, paragraphs, lists, tables, and page breaks. "
-            "Returns the absolute path to the written .md file."
+            "Returns the absolute path to the written .md file. "
+            "If file_path is not accessible (e.g. sandboxed/Docker), use base64_content instead."
         ),
         inputSchema={
             "type": "object",
             "properties": {
                 "file_path": {
                     "type": "string",
-                    "description": "Absolute path to the PDF file",
+                    "description": "Absolute path to the PDF file. Optional if base64_content is provided.",
                 },
                 "base64_content": {
                     "type": "string",
-                    "description": "Base64-encoded PDF content (alternative to file_path)",
+                    "description": "Base64-encoded PDF content. Use this when the file is not directly accessible (e.g. in Docker or sandboxed environments).",
                 },
                 "file_name": {
                     "type": "string",
@@ -63,18 +64,19 @@ TOOLS = [
         description=(
             "Convert a DOCX file to clean, structured Markdown and write it to disk. "
             "Preserves headings, formatting, tables, lists, hyperlinks, footnotes, and comments. "
-            "Returns the absolute path to the written .md file."
+            "Returns the absolute path to the written .md file. "
+            "If file_path is not accessible (e.g. sandboxed/Docker), use base64_content instead."
         ),
         inputSchema={
             "type": "object",
             "properties": {
                 "file_path": {
                     "type": "string",
-                    "description": "Absolute path to the DOCX file",
+                    "description": "Absolute path to the DOCX file. Optional if base64_content is provided.",
                 },
                 "base64_content": {
                     "type": "string",
-                    "description": "Base64-encoded DOCX content (alternative to file_path)",
+                    "description": "Base64-encoded DOCX content. Use this when the file is not directly accessible (e.g. in Docker or sandboxed environments).",
                 },
                 "file_name": {
                     "type": "string",
@@ -101,18 +103,19 @@ TOOLS = [
         description=(
             "Convert a PPTX file to clean, structured Markdown and write it to disk. "
             "Each slide becomes an H2 section with title, body text, tables, and speaker notes. "
-            "Returns the absolute path to the written .md file."
+            "Returns the absolute path to the written .md file. "
+            "If file_path is not accessible (e.g. sandboxed/Docker), use base64_content instead."
         ),
         inputSchema={
             "type": "object",
             "properties": {
                 "file_path": {
                     "type": "string",
-                    "description": "Absolute path to the PPTX file",
+                    "description": "Absolute path to the PPTX file. Optional if base64_content is provided.",
                 },
                 "base64_content": {
                     "type": "string",
-                    "description": "Base64-encoded PPTX content (alternative to file_path)",
+                    "description": "Base64-encoded PPTX content. Use this when the file is not directly accessible (e.g. in Docker or sandboxed environments).",
                 },
                 "file_name": {
                     "type": "string",
@@ -139,18 +142,19 @@ TOOLS = [
         description=(
             "Auto-detect file type (PDF, DOCX, PPTX) and convert to Markdown. "
             "Routes to the appropriate converter based on file extension or MIME type. "
-            "Returns the absolute path to the written .md file."
+            "Returns the absolute path to the written .md file. "
+            "If file_path is not accessible (e.g. sandboxed/Docker), use base64_content instead."
         ),
         inputSchema={
             "type": "object",
             "properties": {
                 "file_path": {
                     "type": "string",
-                    "description": "Absolute path to the source file",
+                    "description": "Absolute path to the source file. Optional if base64_content is provided.",
                 },
                 "base64_content": {
                     "type": "string",
-                    "description": "Base64-encoded file content (alternative to file_path)",
+                    "description": "Base64-encoded file content. Use this when the file is not directly accessible (e.g. in Docker or sandboxed environments).",
                 },
                 "file_name": {
                     "type": "string",

@@ -12,6 +12,37 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 
+def _diagnose_path(file_path: str) -> str:
+    """Build a diagnostic message when a file path cannot be found.
+
+    Reports resolved path, Docker detection, parent directory contents,
+    and a recommendation to use base64_content instead.
+    """
+    path = Path(file_path).resolve()
+    lines = [f"File not found: {file_path}", f"  Resolved to: {path}"]
+
+    # Docker detection
+    in_docker = Path("/.dockerenv").exists()
+    lines.append(f"  Running in Docker: {in_docker}")
+
+    # Parent directory listing
+    parent = path.parent
+    if parent.exists():
+        try:
+            children = sorted(p.name for p in parent.iterdir())[:20]
+            lines.append(f"  Parent dir ({parent}) contains: {children}")
+        except PermissionError:
+            lines.append(f"  Parent dir ({parent}) is not readable")
+    else:
+        lines.append(f"  Parent dir does not exist: {parent}")
+
+    lines.append(
+        "  Recommendation: Use 'base64_content' and 'file_name' parameters instead "
+        "of 'file_path' when running in a sandboxed or Docker environment."
+    )
+    return "\n".join(lines)
+
+
 def resolve_source_file(
     file_path: str | None = None,
     base64_content: str | None = None,
@@ -26,7 +57,7 @@ def resolve_source_file(
     if file_path:
         path = Path(file_path).resolve()
         if not path.exists():
-            raise FileNotFoundError(f"Source file not found: {file_path}")
+            raise FileNotFoundError(_diagnose_path(file_path))
         if not path.is_file():
             raise ValueError(f"Source path is not a file: {file_path}")
         return path, path.name, None

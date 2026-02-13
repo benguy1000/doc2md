@@ -30,7 +30,7 @@ docker run -v $(pwd):/data benguy1000/doc2md
 
 ## MCP Client Configuration
 
-### Claude Desktop
+### Claude Desktop (local Python)
 
 Add to your `claude_desktop_config.json`:
 
@@ -47,6 +47,27 @@ Add to your `claude_desktop_config.json`:
   }
 }
 ```
+
+### Claude Desktop (Docker)
+
+If you run Claude Desktop with Docker-based MCP servers, mount your files directory so the container can access them:
+
+```json
+{
+  "mcpServers": {
+    "doc2md": {
+      "command": "docker",
+      "args": [
+        "run", "--rm", "-i",
+        "-v", "/path/to/your/files:/data",
+        "benguy1000/doc2md"
+      ]
+    }
+  }
+}
+```
+
+> **Note:** In sandboxed or Docker environments, host file paths (e.g. `/mnt/user-data/uploads/`) may not be accessible inside the container. If a file path doesn't resolve, use `base64_content` and `file_name` parameters instead — the LLM will automatically switch to this approach when it receives a path-not-found diagnostic.
 
 ### Claude Code
 
