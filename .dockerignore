@@ -11,6 +11,8 @@ venv/
 .mypy_cache/
 tests/
 *.md
+!README.md
+!LICENSE
 .DS_Store
 Thumbs.db
 node_modules/
